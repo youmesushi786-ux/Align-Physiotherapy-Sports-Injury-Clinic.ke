@@ -236,198 +236,69 @@ function Navbar({ onBookNow }: { onBookNow: () => void }) {
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 1000,
-        transition: "all 0.4s ease",
-        background: "rgba(255,255,255,0.98)",
-        backdropFilter: "blur(20px)",
-        borderBottom: "1px solid rgba(27,154,170,0.15)",
-        padding: scrolled ? "2px 0" : "8px 0", // Slightly more padding when not scrolled
-        boxShadow: "0 2px 20px rgba(10,37,64,0.1)",
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000,
+        background: "#ffffff",
+        transition: "all 0.3s ease",
+        padding: scrolled ? "6px 0" : "12px 0",
+        borderBottom: "1px solid #eee",
+        width: "100%", // Ensures it doesn't exceed screen
       }}
     >
-      <div
-        style={{
-          maxWidth: "1280px",
-          margin: "0 auto",
-          padding: "0 24px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        {/* ── Logo ── */}
-       {/* ── Logo ── */}
-<motion.a
-  href="#"
-  whileHover={{ scale: 1.02 }}
-  style={{
-    display: "flex",
-    alignItems: "center",
-    gap: "12px",
-    textDecoration: "none",
-  }}
->
-  {/* Container: Background and Shadow REMOVED */}
-  <div
-    style={{
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      overflow: "visible", // Allows logo to breathe
-    }}
-  >
-    <img
-      src="/images/logo1.jpg"
-      alt="Align Physiotherapy Logo"
-      style={{
-        // DRASTICALLY INCREASED HEIGHT
-        height: scrolled ? "80px" : "110px", 
-        width: "auto",
-        objectFit: "contain",
-        display: "block",
-        transition: "height 0.4s ease",
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 16px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         
-        // THIS REMOVES THE WHITE BOX AROUND A JPG 
-        // (Assuming your navbar is white/light)
-        mixBlendMode: "multiply", 
-      }}
-      onError={(e) => {
-        const el = e.currentTarget as HTMLImageElement;
-        el.style.display = "none";
-        if (el.parentElement) {
-          el.parentElement.innerHTML = `<span style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:${BRAND.navy}">A</span>`;
-        }
-      }}
-    />
-  </div>
+        {/* Logo - Made larger for mobile visibility */}
+        <a href="#" style={{ display: "flex", alignItems: "center" }}>
+          <img
+            src="/images/logo1.jpg"
+            alt="Logo"
+            style={{
+              height: scrolled ? "45px" : "55px", // Taller than before
+              width: "auto",
+              mixBlendMode: "multiply" 
+            }}
+          />
+        </a>
 
-  {/* Brand text */}
-  <div style={{ marginLeft: "-5px" }}> {/* Slight negative margin to pull text closer to the graphic */}
-    <div
-      style={{
-        fontFamily: "'Playfair Display', serif",
-        fontWeight: 900,
-        fontSize: scrolled ? "1.2rem" : "1.45rem", // Larger text
-        color: BRAND.navy,
-        lineHeight: 1,
-        transition: "all 0.4s ease",
-        letterSpacing: "-0.02em",
-      }}
-    >
-      Align Physiotherapy
-    </div>
-    <div
-      style={{
-        fontSize: "0.7rem",
-        fontWeight: 800,
-        letterSpacing: "0.15em",
-        textTransform: "uppercase",
-        color: BRAND.green,
-        marginTop: "4px",
-      }}
-    >
-      & Sports Injury Clinic
-    </div>
-  </div>
-</motion.a>
-
-        {/* ── Desktop Nav ── */}
-        <div
-          style={{ display: "none", alignItems: "center", gap: "28px" }}
-          className="desktop-nav"
-        >
-          {NAV.map(link => (
-            <motion.a
-              key={link.label}
-              href={link.href}
-              whileHover={{ color: BRAND.blue }}
-              style={{
-                fontSize: "0.85rem",
-                fontWeight: 600,
-                color: BRAND.muted,
-                textDecoration: "none",
-                transition: "color 0.2s",
-              }}
-            >
-              {link.label}
-            </motion.a>
+        {/* Desktop Links (Hidden on mobile) */}
+        <div className="desktop-nav" style={{ display: "none", gap: "25px" }}>
+          {NAV.map(l => (
+            <a key={l.label} href={l.href} style={{ textDecoration: "none", color: BRAND.navy, fontWeight: 600, fontSize: "0.9rem" }}>{l.label}</a>
           ))}
         </div>
 
-        {/* ── Right: Phone + Book + Mobile Menu ── */}
-        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-          <motion.a
-            href={`tel:${PHONE}`}
-            whileHover={{ scale: 1.02 }}
-            className="phone-link"
-            style={{
-              display: "none",
-              alignItems: "center",
-              gap: "6px",
-              padding: "10px 18px",
-              borderRadius: "9999px",
-              fontSize: "0.8rem",
-              fontWeight: 700,
-              color: BRAND.navy,
-              textDecoration: "none",
-              border: "1px solid rgba(27,154,170,0.22)",
-              background: "rgba(27,154,170,0.05)",
-            }}
-          >
-            <Phone style={{ width: "14px", height: "14px", color: BRAND.green }} />
-            {PHONE}
-          </motion.a>
+        {/* Right Side */}
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          {/* Phone Link - HIDDEN ON MOBILE to save space */}
+          <a href={`tel:${PHONE}`} className="phone-link" style={{ display: "none", alignItems: "center", gap: "5px", textDecoration: "none", color: BRAND.navy, fontWeight: 700, fontSize: "0.8rem", padding: "8px 12px", background: "#f5f5f5", borderRadius: "50px" }}>
+            <Phone size={14} color={BRAND.green} /> {PHONE}
+          </a>
 
-          <motion.button
-            onClick={onBookNow}
-            whileHover={{ scale: 1.03, boxShadow: "0 8px 30px rgba(140,198,63,0.5)" }}
-            whileTap={{ scale: 0.97 }}
-            style={{
-              padding: "12px 26px",
-              borderRadius: "9999px",
-              fontSize: "0.9rem",
-              fontWeight: 700,
-              color: "white",
-              background: `linear-gradient(135deg,${BRAND.green},${BRAND.greenDark})`,
-              border: "none",
-              cursor: "pointer",
-              boxShadow: "0 4px 15px rgba(140,198,63,0.35)",
-            }}
-          >
+          <button onClick={onBookNow} style={{ padding: "10px 18px", borderRadius: "50px", background: BRAND.green, color: "white", border: "none", fontWeight: 700, fontSize: "0.8rem", cursor: "pointer" }}>
             Book Now
-          </motion.button>
+          </button>
 
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="mobile-menu-btn"
-            style={{
-              padding: "8px",
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              color: BRAND.navy,
-            }}
-          >
-            {menuOpen ? <X /> : <Menu />}
+          <button onClick={() => setMenuOpen(!menuOpen)} className="menu-toggle" style={{ background: "none", border: "none", cursor: "pointer", color: BRAND.navy, display: "flex", alignItems: "center" }}>
+            {menuOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
         </div>
       </div>
 
-      {/* ... Mobile Menu Code remains the same ... */}
-      
+      {/* Mobile Menu Dropdown */}
+      {menuOpen && (
+        <div style={{ background: "white", width: "100%", padding: "20px", display: "flex", flexDirection: "column", gap: "20px", borderTop: "1px solid #eee" }}>
+          {NAV.map(l => (
+            <a key={l.label} href={l.href} onClick={() => setMenuOpen(false)} style={{ textDecoration: "none", color: BRAND.navy, fontWeight: 600, fontSize: "1.1rem" }}>{l.label}</a>
+          ))}
+          <a href={`tel:${PHONE}`} style={{ color: BRAND.green, fontWeight: 700, textDecoration: "none" }}>Call: {PHONE}</a>
+        </div>
+      )}
+
       <style>{`
-        @media(min-width:1024px){
-          .desktop-nav{ display: flex !important; }
-          .phone-link{ display: flex !important; }
-          .mobile-menu-btn{ display: none !important; }
+        @media (min-width: 1024px) {
+          .desktop-nav { display: flex !important; }
+          .phone-link { display: flex !important; }
+          .menu-toggle { display: none !important; }
         }
       `}</style>
     </motion.nav>
